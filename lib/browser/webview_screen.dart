@@ -1,9 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-
 import '../loading_utils.dart';
 
 class WebViewScreen extends StatefulWidget {
@@ -29,18 +27,18 @@ class _WebViewScreenState extends State<WebViewScreen> {
         onWebViewCreated: (WebViewController webViewController) {
           _controller = webViewController;
         },
-        onProgress: (int progress) {
-          showLoagingWithProgress(
-              message: "Reloading....", progress: progress / 100);
+        onProgress: (int progress) async {
+          if (progress < 89) {
+            showLoagingWithProgress(
+                message: "Reloading....", progress: progress / 100);
+          } else {
+            await EasyLoading.dismiss();
+          }
         },
         javascriptChannels: <JavascriptChannel>{
           // _toasterJavascriptChannel(context),
         },
         navigationDelegate: (NavigationRequest request) {
-          if (request.url.startsWith('https://www.youtube.com/')) {
-            print('blocking navigation to $request}');
-            return NavigationDecision.prevent;
-          }
           print('allowing navigation to $request');
           return NavigationDecision.navigate;
         },
