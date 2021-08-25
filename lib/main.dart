@@ -1,12 +1,14 @@
 import 'dart:async';
 
 import 'package:autorefresh/browser/webview_screen.dart';
+import 'package:autorefresh/loading_utils.dart';
 import 'package:autorefresh/screens/reload_duration_screen.dart';
 import 'package:autorefresh/screens/site_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 void main() {
+  config();
   runApp(MyApp());
 }
 
